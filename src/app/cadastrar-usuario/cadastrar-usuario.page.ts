@@ -33,7 +33,8 @@ export class CadastrarUsuarioPage {
       console.log(dados);
 
       if (dados.sucesso) {
-        this.navCtrl.navigateForward("/");
+        //this.navCtrl.navigateForward("/");
+        this.navCtrl.navigateRoot("/");
       } else {
         alert("Erro ao cadastrar o usuário!");
       }

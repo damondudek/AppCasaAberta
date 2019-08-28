@@ -5,6 +5,10 @@ import { FormBuilder } from '@angular/forms';
 
 import { UsuarioService } from '../services/usuario/usuario.service';
 
+import { Storage } from '@ionic/storage';
+
+import { ToastController } from '@ionic/angular';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -14,11 +18,19 @@ export class LoginPage {
 
   formularioLogin;
 
-  constructor(private navCtrl: NavController, private formBuilder: FormBuilder, private usuarioService: UsuarioService) { 
+  constructor(private toastController: ToastController, private navCtrl: NavController, private formBuilder: FormBuilder, private usuarioService: UsuarioService, private storage: Storage) { 
     this.formularioLogin = this.formBuilder.group({
       email: "",
       password: ""
     });
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Your settings have been saved.',
+      duration: 10000
+    });
+    toast.present();
   }
 
   login(dadosLogin: any) {
@@ -30,9 +42,12 @@ export class LoginPage {
       console.log(data);
 
       if (data.sucesso) {
-        this.navCtrl.navigateForward("/home");
+        this.storage.set("usuario", data.usuario).then(() => {
+          this.navCtrl.navigateRoot("/home");
+        });
       } else {
-        alert("Usuário não encontrado!");
+        //alert("Usuário não encontrado!");
+        this.presentToast();
       }
     });
 

@@ -15,7 +15,7 @@
       <ion-input type="password" inputmode="password" formControlName="password" required="true"></ion-input>
     </ion-item> 
 
-    <ion-button type="submit" expand="block" (click)="login(formularioLogin.value)" color="success">Entrar</ion-button>
+    <ion-button type="submit" expand="block" (click)="login(formularioLogin.value)" [disabled]="formularioLogin.invalid" color="success">Entrar</ion-button>
   </form> 
 
   <br>
