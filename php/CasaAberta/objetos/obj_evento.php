@@ -7,7 +7,7 @@
 
     $conexao = AbreConexaoBD();
 
-    $sql = "SELECT nome, descricao FROM tb_evento";
+    $sql = "SELECT nome, descricao, DATE_FORMAT(data_evento, '%d/%m/%Y %Hh%i') as data_evento  FROM tb_evento";
     
     $resultado = mysqli_query($conexao, $sql);
 
@@ -16,7 +16,7 @@
     $eventos = [];
 
     while($linha = mysqli_fetch_assoc($resultado)) {
-        $evento = json_decode('{ "nome": "' . $linha["nome"] . '", "descricao": "' . $linha["descricao"] . '"}');
+        $evento = json_decode('{ "nome": "' . $linha["nome"] . '", "descricao": "' . $linha["descricao"] . '", "data_evento": "' . $linha["data_evento"] . '"}');
         array_push($eventos, $evento);
         //echo '{ "nome": "' . $linha["nome"] . '", "descricao": "' . $linha["descricao"] . '"},';
     }
@@ -29,9 +29,9 @@
 
     /*
         [
-            { nome: "Git", descricao: "Git Hub no mercado" },
-            { nome: "Git 2", descricao: "Git Hub no mercado 2" },
-            { nome: "Git 3", descricao: "Git Hub no mercado 3" }
+            { "nome": "Git", "descricao": "Git Hub no mercado" },
+            { "nome": "Git 2", "descricao": "Git Hub no mercado 2" },
+            { "nome": "Git 3", "descricao": "Git Hub no mercado 3" }
         ]
     */
 ?>
