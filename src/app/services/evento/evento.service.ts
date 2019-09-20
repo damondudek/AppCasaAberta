@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class EventoService {
   //url: string = "http://localhost:8085/casaaberta/objetos";
-  private url:string = "http://10.0.2.2:8085/casaaberta/objetos";
+  private url:string = "http://10.131.46.22:8085/casaaberta/objetos";
 
   constructor(private http: HttpClient) { }
 
