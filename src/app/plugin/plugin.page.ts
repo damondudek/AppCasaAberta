@@ -8,7 +8,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
   styleUrls: ['./plugin.page.scss'],
 })
 export class PluginPage implements OnInit {
-
+ 
   base64Image: string[];
   //base64Image: Array<string>;
   //base64Image = [];
