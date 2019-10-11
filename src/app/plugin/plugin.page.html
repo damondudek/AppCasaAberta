@@ -5,11 +5,32 @@
 </ion-header>
 
 <ion-content>
+  <ion-button (click)="pegarInformacoesDispositivo()">Mostrar Informações</ion-button>
+
+  <h1>Informações do aplicativo</h1>
+  <p>Memória - {{deviceInformation.memory}} <br>
+  CPU - {{deviceInformation.cpumhz}} <br>
+  Total armazenamento - {{deviceInformation.totalstorage}} <br>
+  Armazenamento disponível - {{deviceInformation.freestorage}}</p>
+    
+  <p>{{texto}}</p>
+  <ion-button (click)="copiar()">Copiar</ion-button>
+  <ion-button (click)="colar()">Colar</ion-button>
+  <ion-button (click)="limpar()">Limpar</ion-button>
+  <p>{{textoColado}}</p>
+
+  <ion-button (click)="fazerChamada()">Ligar</ion-button>
+  <ion-button (click)="vibrar()">Vibrar</ion-button>
+  <ion-button (click)="falar()">Falar</ion-button>
+  <ion-button (click)="lerQrCode()">Ler QrCode</ion-button>
+
+  <ion-input inputmode="text" type="text" placeholder="Cole aqui"></ion-input>
+
   <app-botao [nome]="'Botão 1'"></app-botao>
   <app-botao [nome]="'Botão 1'"></app-botao>
 
-  <button (click)="tirarFoto()">Tirar foto</button>
-  <button (click)="localizacao()">Localização</button>
+  <ion-button (click)="tirarFoto()">Tirar foto</ion-button>
+  <ion-button (click)="localizacao()">Localização</ion-button>
 
   <h1>Mapa</h1>
   <div #googleMaps class="googleMaps"></div>

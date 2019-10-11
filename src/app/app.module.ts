@@ -15,6 +15,15 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { IonicStorageModule } from '@ionic/storage';
 
+// plugins exercícios
+import { ExtendedDeviceInformation } from '@ionic-native/extended-device-information/ngx';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
+import { CallNumber } from '@ionic-native/call-number/ngx';
+import { Vibration } from '@ionic-native/vibration/ngx';
+import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
+import { Backlight } from '@ionic-native/backlight/ngx';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -24,6 +33,13 @@ import { IonicStorageModule } from '@ionic/storage';
     SplashScreen,
     Camera,
     Geolocation,
+    ExtendedDeviceInformation,
+    Clipboard,
+    CallNumber,
+    Vibration,
+    TextToSpeech,
+    Backlight,
+    BarcodeScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

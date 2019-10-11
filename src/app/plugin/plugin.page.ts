@@ -2,6 +2,15 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angula
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 
+// plugins exercícios
+import { ExtendedDeviceInformation } from '@ionic-native/extended-device-information/ngx';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
+import { CallNumber } from '@ionic-native/call-number/ngx';
+import { Vibration } from '@ionic-native/vibration/ngx';
+import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
+import { Backlight } from '@ionic-native/backlight/ngx';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+
 declare var google;
 
 @Component({
@@ -17,9 +26,47 @@ export class PluginPage implements OnInit, AfterViewInit {
   //base64Image = [];
   //base64Image: any;
 
-  constructor(private camera: Camera, private geolocation: Geolocation) { }
+  deviceInformation: any;
+  texto: string = "Olá Senac!";
+  textoColado: string = "";
+
+  constructor(private camera: Camera, 
+              private geolocation: Geolocation,
+              private extendedDeviceInformation: ExtendedDeviceInformation,
+              private clipboard: Clipboard,
+              private callNumber: CallNumber,
+              private vibration: Vibration,
+              private tts: TextToSpeech,
+              private backlight: Backlight,
+              private barcodeScanner: BarcodeScanner) { }
 
   ngOnInit() {
+    this.deviceInformation = this.extendedDeviceInformation;
+    alert(this.extendedDeviceInformation.memory);
+  }
+
+  pegarInformacoesDispositivo() {
+    alert(this.extendedDeviceInformation.memory);
+  }
+
+  copiar() {
+    this.clipboard.copy(this.texto);
+  }
+
+  colar() {
+    this.clipboard.paste().then(
+      (resolve: string) => {
+         this.textoColado = resolve;
+       },
+       (reject: string) => {
+         alert('Error: ' + reject);
+         this.textoColado = "erro";
+       }
+     );
+  }
+
+  limpar() {
+    this.clipboard.clear();
   }
 
   ngAfterViewInit() {
@@ -70,6 +117,30 @@ export class PluginPage implements OnInit, AfterViewInit {
       // resp.coords.longitude
      }).catch((error) => {
        console.log('Error getting location', error);
+     });
+  }
+
+  fazerChamada() {
+    this.callNumber.callNumber("11963548450", true)
+      .then(res => console.log('Launched dialer!', res))
+      .catch(err => console.log('Error launching dialer', err));
+  }
+
+  vibrar() {
+    this.vibration.vibrate(2000);
+  }
+
+  falar() {
+    this.tts.speak('Olá turma, boa noite.')
+      .then(() => console.log('Success'))
+      .catch((reason: any) => console.log(reason));
+  }
+
+  lerQrCode() {
+    this.barcodeScanner.scan().then(barcodeData => {
+      alert(barcodeData.text);
+     }).catch(err => {
+         console.log('Error', err);
      });
   }
 
