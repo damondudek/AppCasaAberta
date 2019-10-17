@@ -1,13 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
-
 import { FormBuilder } from '@angular/forms';
-
 import { UsuarioService } from '../services/usuario/usuario.service';
-
 import { Storage } from '@ionic/storage';
-
 import { ToastController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -17,8 +14,9 @@ import { ToastController } from '@ionic/angular';
 export class LoginPage {
 
   formularioLogin;
+  loading: any = null;
 
-  constructor(private toastController: ToastController, private navCtrl: NavController, private formBuilder: FormBuilder, private usuarioService: UsuarioService, private storage: Storage) { 
+  constructor(public loadingController: LoadingController, private toastController: ToastController, private navCtrl: NavController, private formBuilder: FormBuilder, private usuarioService: UsuarioService, private storage: Storage) { 
     this.formularioLogin = this.formBuilder.group({
       email: "",
       password: ""
@@ -33,7 +31,9 @@ export class LoginPage {
     toast.present();
   }
 
-  login(dadosLogin: any) {
+  async login(dadosLogin: any) {
+    await this.mostraCarregando();
+
     const formData = new FormData();
     formData.append("email", dadosLogin.email);
     formData.append("senha", dadosLogin.password);
@@ -49,7 +49,10 @@ export class LoginPage {
         //alert("Usuário não encontrado!");
         this.presentToast();
       }
+            
     });
+
+    await this.ocultaCarregando();
 
     //alert("Click");
     //this.navCtrl.navigateForward("/tabs");
@@ -59,8 +62,21 @@ export class LoginPage {
     this.navCtrl.navigateForward("/cadastrar-usuario");
   }   
 
+  plugin() {
+    this.navCtrl.navigateForward("/plugin");
+  }
 
+  async mostraCarregando() {
+    this.loading = await this.loadingController.create({
+      message: 'Carregando...',
+      spinner: 'bubbles'
+    });
+    
+    await this.loading.present();
+  }
 
-
+  async ocultaCarregando() {
+    await this.loading.dismiss();
+  }
 
 }
